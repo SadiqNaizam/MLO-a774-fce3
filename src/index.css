@@ -1,57 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --font-primary: "Nunito";
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Light theme (default) based on PRD */
+    --background: 240 17% 96%; /* PRD #F3F3F9 */
+    --foreground: 210 13% 15%; /* PRD #212529 */
+    
+    --card: 0 0% 100%; /* PRD #FFFFFF (surface) */
+    --card-foreground: 210 13% 15%; /* PRD #212529 (primaryText on card) */
+    
+    --popover: 0 0% 100%; /* PRD #FFFFFF (surface) */
+    --popover-foreground: 210 13% 15%; /* PRD #212529 (primaryText on popover) */
+    
+    --primary: 202 70% 51%; /* PRD accentBlue #299CDB */
+    --primary-foreground: 0 0% 100%; /* Contrast for primary: White #FFFFFF */
+    
+    --secondary: 210 11% 92%; /* PRD border #E9EBEC */
+    --secondary-foreground: 210 13% 15%; /* PRD primaryText #212529 for contrast */
+    
+    --muted: 210 11% 92%; /* PRD border #E9EBEC (can be same as secondary or slightly different) */
+    --muted-foreground: 230 10% 63%; /* PRD secondaryText #878A99 */
+    
+    --accent: 170 89% 37%; /* PRD accentGreen #0AB39C */
+    --accent-foreground: 0 0% 100%; /* Contrast for accent: White #FFFFFF */
+    
+    --destructive: 10 86% 61%; /* PRD accentRed #F06548 */
+    --destructive-foreground: 0 0% 100%; /* Contrast for destructive: White #FFFFFF */
+    
+    --border: 210 11% 92%; /* PRD border #E9EBEC */
+    --input: 210 11% 92%; /* PRD border #E9EBEC (often same as border) */
+    --ring: 202 70% 51%; /* PRD accentBlue #299CDB (for focus rings) */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --radius: 0.25rem; /* PRD effects.borderRadius.default: "rounded" (Tailwind 'rounded' is 0.25rem) */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar specific variables */
+    --sidebar-background: 227 35% 39%; /* PRD sidebar #405189 */
+    --sidebar-foreground: 0 0% 100%; /* Derived: White for text on #405189 */
+    --sidebar-primary: 202 70% 51%; /* Derived: Using PRD accentBlue #299CDB for active/primary items */
+    --sidebar-primary-foreground: 0 0% 100%; /* Derived: White for text on sidebar-primary */
+    --sidebar-accent: 226 35% 48%; /* Derived: Lighter shade of sidebar-bg (#5066A3) for hover/accent states */
+    --sidebar-accent-foreground: 0 0% 100%; /* Derived: White for text on sidebar-accent */
+    --sidebar-border: 227 35% 33%; /* Derived: Darker shade of sidebar-bg (#364573) for internal borders */
+    --sidebar-ring: 202 70% 51%; /* Derived: Using PRD accentBlue #299CDB for focus rings in sidebar */
   }
 
   .dark {
+    /* Using existing dark mode HSL values from input as PRD is silent on dark mode colors. */
+    /* --radius is inherited from :root (0.25rem) and does not need re-declaration unless different for dark mode. */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -79,6 +80,8 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Sidebar dark variables - preserved from input */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -92,10 +95,14 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border; /* Uses CSS var --border via tailwind.config.ts */
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-primary), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
